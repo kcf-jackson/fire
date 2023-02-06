@@ -32,7 +32,7 @@ fire <- function(f, ..., run_interactive = FALSE) {
 
   # CLI call via Rscript
   cargs <- commandArgs(trailingOnly = TRUE)
-  if (cargs[1] == "help") {
+  if (length(cargs) >= 1 && cargs[1] == "help") {
     fargs <- formalArgs(f)
     message(
       sprintf("The command-line interface expects %d arguments: %s.",
