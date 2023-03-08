@@ -63,8 +63,12 @@ parse_args <- function(args) {
 }
 
 
-# parse_str :: string -> string | number
+# parse_str :: string -> string | number | logical
 parse_str <- function(x) {
+  if (x == "TRUE" || x == "T" || x == "FALSE" || x == "F") {
+    return(as.logical(x))
+  }
+
   y <- tryCatch(as.numeric(x), warning = identity, error = identity)
   ifelse(inherits(y, "warning"), x, y)
 }

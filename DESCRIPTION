@@ -1,6 +1,6 @@
 Package: fire
 Title: Convert an R function to a CLI
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Chun Fung", "Kwok", email = "kcf.jackson@gmail.com", role = c("aut", "cre")),
     person("Felix", "Leung", role = c("aut"))
