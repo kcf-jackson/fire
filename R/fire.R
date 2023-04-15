@@ -18,7 +18,7 @@ NULL
 #'
 #' # # At terminal
 #' # Rscript add.R --x=1 --y=2  # Reuse function to generate result 2
-#' # Rscript add.R help  # Show what arguments are required
+#' # Rscript add.R --help  # Show what arguments are required
 #'
 #' @export
 fire <- function(f, ..., run_interactive = FALSE) {
@@ -32,7 +32,7 @@ fire <- function(f, ..., run_interactive = FALSE) {
 
   # CLI call via Rscript
   cargs <- commandArgs(trailingOnly = TRUE)
-  if (length(cargs) >= 1 && cargs[1] == "help") {
+  if (length(cargs) >= 1 && cargs[1] %in% c("help", "--help")) {
     fargs <- formalArgs(f)
     message(
       sprintf("The command-line interface expects %d arguments: %s.",
@@ -71,4 +71,35 @@ parse_str <- function(x) {
 
   y <- tryCatch(as.numeric(x), warning = identity, error = identity)
   ifelse(inherits(y, "warning"), x, y)
+}
+
+
+#' CLI variable
+#' @description Make a variable accept CLI input.
+#'
+#' @param default The default value.
+#' @param flag A character string; the name of the flag.
+#'
+#' @examples
+#' # # test.R
+#' # parameter <- fire::CLI_VAR(1, "param")
+#' # print(parameter)
+#'
+#' # # At terminal
+#' # Rscript test.R
+#' # Rscript test.R --param=999
+#'
+#' @export
+CLI_VAR <- function(default, flag) {
+  if (interactive()) {
+    return(default)
+  }
+
+  cargs <- commandArgs(trailingOnly = TRUE)
+  args <- parse_args(cargs)
+  if (flag %in% names(args)) {
+    return(args[[flag]])
+  }
+
+  default
 }

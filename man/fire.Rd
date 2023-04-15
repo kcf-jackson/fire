@@ -24,6 +24,6 @@ Convert a function into a CLI
 
 # # At terminal
 # Rscript add.R --x=1 --y=2  # Reuse function to generate result 2
-# Rscript add.R help  # Show what arguments are required
+# Rscript add.R --help  # Show what arguments are required
 
 }
